@@ -72,7 +72,7 @@ func (t *Target) ensureFrame() (*cdp.Frame, *cdp.Node, runtime.ExecutionContextI
 	t.frameMu.RUnlock()
 
 	// the frame hasn't loaded yet.
-	if frame == nil || execCtx == 0 {
+	if frame == nil {
 		return nil, nil, 0, false
 	}
 

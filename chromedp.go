@@ -14,7 +14,6 @@ package chromedp
 import (
 	"context"
 	"fmt"
-	"strings"
 	"sync"
 	"time"
 
@@ -26,7 +25,6 @@ import (
 	"github.com/chromedp/cdproto/log"
 	"github.com/chromedp/cdproto/network"
 	"github.com/chromedp/cdproto/page"
-	"github.com/chromedp/cdproto/runtime"
 	"github.com/chromedp/cdproto/target"
 )
 
@@ -442,14 +440,15 @@ func (c *Context) attachTarget(ctx context.Context, targetID target.ID) error {
 	// Check if this is a worker target. We cannot use Target.getTargetInfo or
 	// Target.getTargets in a worker, so we check if "self" refers to a
 	// WorkerGlobalScope or ServiceWorkerGlobalScope.
-	if err := runtime.Enable().Do(cdp.WithExecutor(ctx, c.Target)); err != nil {
-		return err
-	}
-	res, _, err := runtime.Evaluate("self").Do(cdp.WithExecutor(ctx, c.Target))
-	if err != nil {
-		return err
-	}
-	c.Target.isWorker = strings.Contains(res.ClassName, "WorkerGlobalScope")
+	// if err := runtime.Enable().Do(cdp.WithExecutor(ctx, c.Target)); err != nil {
+	// 	return err
+	// }
+	// res, _, err := runtime.Evaluate("self").Do(cdp.WithExecutor(ctx, c.Target))
+	// if err != nil {
+	// 	return err
+	// }
+	// c.Target.isWorker = strings.Contains(res.ClassName, "WorkerGlobalScope")
+	c.Target.isWorker = false
 
 	// Enable available domains and discover targets.
 	actions := []Action{
