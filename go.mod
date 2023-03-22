@@ -1,4 +1,4 @@
-module github.com/chromedp/chromedp
+module github.com/dp-indrak/chromedp
 
 go 1.18
 
